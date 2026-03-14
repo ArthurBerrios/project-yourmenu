@@ -1,0 +1,745 @@
+/* Reset e Base */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navbar */
+.navbar {
+    padding: 20px 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #fff;
+}
+
+.btn-reserve {
+    border: 1px solid #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+/* Grid de Produtos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 40px 0;
+}
+
+.product-card {
+    background-color: green;
+    border: 1px solid #222;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+/* Efeito de destaque (como o Yakisoba de Frango na sua imagem) */
+.product-card:hover {
+    border-color: #d4af37; /* Dourado */
+    transform: translateY(-5px);
+}
+
+.image-container img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #d4af37;
+}
+
+.card-body p {
+    font-size: 13px;
+    color: #aaa;
+    height: 40px;
+    line-height: 1.4;
+}
+
+.price {
+    display: block;
+    color: #e63946;
+    font-weight: bold;
+    font-size: 16px;
+    margin-top: 10px;
+}
+/* Hero Section - Home */
+.home-hero {
+    height: 92vh; /* Ocupa 100% da altura da tela */
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -80px; /* Compensa a altura da navbar se ela for fixa */
+}
+
+.hero-content {
+    text-align: center;
+    color: white;
+}
+
+.restaurant-name {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.hero-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Botões Estilizados */
+.btn-main {
+    background-color: transparent;
+    border: 2px solid #3b82f6; /* Azul como no seu desenho */
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: 0.3s;
+    border-radius: 4px;
+}
+
+.btn-main:hover {
+    background-color: #3b82f6;
+}
+
+.btn-secondary {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.btn-secondary:hover {
+    opacity: 1;
+}
+
+.divider {
+    font-style: italic;
+    color: #ccc;
+}
+
+/* Botão Flutuante */
+.cart-floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #d4af37;
+    border: none;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #e63946;
+    color: white;
+    font-size: 12px;
+    padding: 3px 7px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Menu Lateral (Sidebar) */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px; /* Escondido */
+    width: 350px;
+    height: 100vh;
+    background: #111;
+    color: white;
+    transition: 0.4s;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-sidebar.active {
+    right: 0; /* Aparece */
+}
+
+/* Overlay Escuro */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    z-index: 1500;
+}
+
+.cart-overlay.active {
+    display: block;
+}
+
+/* Internos do Carrinho */
+.cart-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.cart-items {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cart-footer {
+    padding: 20px;
+    background: #000;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: #d4af37;
+    color: #000;
+    border: none;
+    padding: 15px;
+    margin-top: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.checkout-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.page-title {
+    color: #d4af37;
+    text-align: center;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+}
+
+/* Lista de Itens */
+.checkout-summary, .checkout-form-card {
+    background: #111;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.checkout-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid;
+}
+
+.checkout-item img {
+    border-radius: 4px;
+}
+
+.item-info h4 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.item-info span {
+    color: #888;
+    font-size: 14px;
+}
+
+.checkout-total {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.checkout-total strong {
+    color: #d4af37;
+}
+
+/* Formulário */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.btn-finish {
+    width: 100%;
+    background: #d4af37;
+    color: #000;
+    border: none;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.btn-finish:hover {
+    background: #fff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Layout Geral */
+.reservation-container {
+    padding: 60px 20px;
+    background-color: #000;
+}
+
+.reservation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Mapa de Mesas */
+.tables-map-section {
+    background: #fff;
+    padding: 40px;
+    text-align: center;
+}
+
+.floor-title { color: #222; margin-bottom: 25px; }
+
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+}
+
+.table-item.available {
+    background: #28a745; /* Verde */
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.table-item.selected {
+    border-color: #d4af37;
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+.table-circle {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-weight: bold;
+}
+
+.map-legend { color: #666; font-size: 12px; margin-top: 20px; }
+
+/* Formulário */
+.reservation-form-section {
+    padding: 40px;
+    color: #fff;
+}
+
+.form-title { color: #d4af37; margin-bottom: 30px; text-transform: uppercase; }
+
+.form-group { margin-bottom: 20px; }
+
+.form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: #aaa; }
+
+.input-dark, .select-gold, .input-gold {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+
+.input-dark { background: #000; color: #fff; }
+
+.select-gold, .input-gold {
+    font-weight: bold;
+    border: none;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.btn-reserve-final {
+    width: 100%;
+    padding: 15px;
+    background: transparent;
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-reserve-final:hover {
+    background: #d4af37;
+    color: #000;
+}
+.btn-add-cart {
+    /* Cores usando as variáveis que definimos */
+    background-color: var(--primary-color);
+    color: #ffffff; 
+    
+    /* Reset total */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+    /* CENTRALIZAÇÃO: Importante para botões pequenos */
+    margin: 0 auto; /* Centraliza horizontalmente se o pai for block */
+    
+    /* DESIGN REDUZIDO: Alterado de 10px 20px para 6px 15px */
+    padding: 6px 15px; 
+    border-radius: 50px; 
+    font-weight: 700;
+    
+    /* TAMANHO DA FONTE: Diminuído para ficar mais delicado */
+    font-size: 0.75rem; 
+    text-transform: uppercase;
+    
+    /* Alinhamento */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Menor espaço entre ícone e texto */
+    
+    /* Efeitos de profundidade e transição */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+    /* Garante que o botão não estique (largura automática) */
+    width: fit-content;
+}
+
+/* Efeito de Hover (Passar o mouse) */
+.btn-add-cart:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1); /* Brilho levemente menor para não estourar */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito de Active (Ao clicar) */
+.btn-add-cart:active {
+    transform: scale(0.95); /* Pressiona um pouco mais */
+}
+
+/* Estilo do ícone dentro do botão - Diminuído também */
+.btn-add-cart i {
+    font-size: 0.9rem;
+}
+.btn-checkout {
+    display: block;
+    width: fit-content;      /* Ocupa apenas o tamanho do texto */
+    min-width: 150px;       /* Garante um tamanho mínimo confortável */
+    margin: 20px auto;      /* 0 em cima/baixo e AUTO nas laterais centraliza */
+    padding: 12px 25px;
+    
+    background-color: var(--primary-color);
+    color: #ffffff;
+    
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: transform 0.3s ease;
+}
+
+.btn-checkout:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* O elemento MAIN vai crescer e ocupar todo o espaço vazio,
+   empurrando o footer para baixo */
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+
+
+
+/*   AQUIIIIIIIIIIIIIIIIIIIIIIIIIIII */
+
+
+/* Remove qualquer margem que possa gerar espaço branco nas bordas */
+.menu-section {
+    width: 100%;
+    margin: 0;
+    padding-top: 40px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Faz todos os cards terem a mesma altura */
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Empurra o rodapé do card para baixo */
+    justify-content: space-between;
+}
+
+.card-footer-item {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Garante que a imagem preencha o topo do card sem espaços */
+.image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+/* Isso garante que o fundo da Home ocupe 100% do espaço abaixo da navbar */
+.home-hero {
+    width: 100%;
+    min-height: calc(100vh - 80px); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: var(--second-color); /* Usando a variável */
+}
+
+.hero-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.restaurant-name {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    color: var(--primary-color); /* Usando a variável */
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Estilo Base do Botão */
+.btn-main {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 15px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+}
+
+.divider {
+    font-weight: bold;
+    opacity: 0.7;
+    color: var(--primary-color);
+}
+
+/* Hover corrigido */
+.btn-main:hover {
+    background-color: var(--primary-color) !important;
+    color: var(--second-color) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+/* Remove o limite de largura do container global para que o fundo encoste nas bordas */
+.container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 20px !important;
+    margin: 0 !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden; /* Importante para não dar scroll lateral */
+}
+
+/* 2. Navbar: Fundo total, mas conteúdo centralizado */
+.navbar {
+    width: 100% !important;
+    display: flex;
+    justify-content: center; /* Centraliza o container interno */
+}
+
+.navbar .container {
+    max-width: 1200px !important; /* Ou a largura que você preferir */
+    width: 100% !important;
+    margin: 0 auto !important; /* Centraliza o bloco na tela */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px !important; /* Evita que o logo cole na parede da tela */
+}
+
+/* 3. Footer: Ajuste de alinhamento e largura total */
+footer {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+footer p {
+    margin: 0 !important;
+}
+
+/* 4. Garante que o conteúdo principal não tenha margens estranhas */
+main {
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}

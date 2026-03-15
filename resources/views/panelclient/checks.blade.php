@@ -20,7 +20,7 @@
                     <tr>
                         <td>
                             <span class="badge" style="background-color: #1976d2; color: white;">
-                                Mesa {{ $check->orders->first()->table_id}}
+                                Mesa {{ $check->orders->first()->table->number}}
                             </span>
                         </td>
                         <td>

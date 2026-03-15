@@ -26,7 +26,9 @@ class CheckRepository implements CheckInterfaceRepository{
             {
                 return $order->check;
             }
-            return null;
+            else{
+                return null;
+            }
         }
         else{
             return null;

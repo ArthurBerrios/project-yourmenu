@@ -1,59 +1,50 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🍽️ YourMenu - Backend Engine (Multi-Tenant)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+O **YourMenu** é uma plataforma de gestão para restaurantes construída com foco em escalabilidade. O sistema opera em um modelo multi-inquilino (multi-tenant), onde uma interface administrativa central gerencia múltiplos restaurantes, cada um com sua própria identidade visual, regras de negócio e fluxo de pedidos.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Stack Técnica & Arquitetura
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O projeto foi desenvolvido priorizando a separação de responsabilidades e a performance do banco de dados:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **Linguagem & Framework:** PHP 8.x + Laravel
+* **Banco de Dados:** MySQL
+* **Padrões de Projeto (Design Patterns):**
+    * **Repository Pattern:** Abstração da camada de persistência para um código mais limpo e testável.
+    * **Service Layer:** Centralização das regras de negócio complexas (ex: lógica de disponibilidade de mesas).
+* **Otimização:** Uso extensivo de **Eager Loading** para mitigar o problema de performance *N+1* em consultas relacionadas.
+* **Persistência Temporária:** Sistema de carrinho e contexto do cliente baseado em **Sessions**, eliminando a fricção de login para o usuário final.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## ⚙️ Core Backend Logic
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Arquitetura de Middlewares (Acesso e Contexto)
+O backend utiliza três camadas principais de Middlewares para orquestrar a aplicação:
 
-## Laravel Sponsors
+* **Role-Based Redirect:** Filtra o login e redireciona dinamicamente: administradores da *YourMenu* seguem para o Painel Admin, enquanto proprietários de restaurantes são levados ao seu respectivo Dashboard.
+* **Tenant Context Discovery:** Ao acessar a URL de um restaurante, este middleware captura o `slug`, identifica o `restaurant_id` e injeta em sessão os dados críticos (nome, cores primária/secundária). Isso garante que toda a experiência do cliente e o processamento do pedido sejam vinculados ao banco de dados correto de forma isolada.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Engine de Reservas Inteligentes
+Diferente de uma reserva simples, a lógica implementada realiza uma validação de disponibilidade em tempo real:
+1.  O sistema recebe `Data`, `Horário` e `Qtd. de Pessoas`.
+2.  O **Service** executa uma query que cruza a capacidade das mesas com as reservas já existentes no banco.
+3.  Apenas mesas que não possuem conflitos de horário e que comportam o grupo são retornadas, evitando *overbooking*.
 
-### Premium Partners
+### 3. Gestão de Estado (Pedidos e Comandas)
+O backend gerencia o ciclo de vida completo de uma venda:
+* **Carrinho Stateless:** Produtos são armazenados em sessão, permitindo que o cliente feche o pedido de forma anônima.
+* **Status de Comanda:** Implementação de lógica para monitorar se a comanda foi solicitada pela mesa, está pendente ou paga, com atualização direta no painel do restaurante.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🗺️ Estrutura de Domínios
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* **Painel Admin (SaaS):** Gestão de Tenants (Criação e monitoramento de restaurantes).
+* **Painel do Restaurante (ERP):** CRUD de produtos, gestão de mesas, customização de UI (cores) e monitoramento de pedidos.
+* **Interface do Cliente (Front-end Dinâmico):** Consome os dados injetados pelo Middleware de Contexto para renderizar o cardápio e processar reservas.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**Desenvolvido por Arthur Berrios**
